@@ -1,0 +1,12 @@
+
+
+
+Architecture should be hands off enough in order for you to solve a problem without it interfering in the natural process of solving the problem. But it should exist enough so that you program is robust, reusable, and easily modifiable and extendable.
+
+The architecture of Java intrudes too much into the natural way of solving programs.
+
+The architecture should be setup in such a way that you can easily accomplish what you your task, refactor and change existing code completely, and it will guide your code to have a much smaller, more extendable, and more efficient codebase.
+
+Good architecture will reduce the lines of code and the complexity of the program significantly. It will shorten code by taking advantage of patterns, unlike C and APL which just compress the existing code into a terse, cryptic mess which make application maintenance and enhancement frightening. It will actually conquer the problems in the code and solve them.
+
+Coupling and Cohesion

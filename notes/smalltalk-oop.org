@@ -1,0 +1,217 @@
+#+title: Smalltalk Object-Oriented Programming
+
+
+
+"I thought of objects being like biological cells and/or individual computers on a network, only able to communicate with messages... OOP (Object Oriented Programming) to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things." -Alan Kay
+
+The "how" is abstracted away.
+
+
+
+
+A method is something an object does. A message is a request for an object to do something. Your code can send a message to an object, and that object will have a method to deal with the message. Isn't a method just a function and a message just a function call? No. Messages can't be commands. "An individual's knowledge or actions is not directly available to me or to you. We can only get at it through a request. And then hopefully that individual will respond by providing the information that we want, or by telling us that they either don't have the information or that they don't have the ability to deal with that request. Each person with their skills and knowledge are like black boxes. The exact details of their knowledge or skills and what's inside is unknown to us. What we do know is that they can do useful things because we know what type of job they have. In OO terms we know their class." The point is that the calling code does not have access to the data, variables, or implementation details of the called object. The internal details of the called object are not available to code outside that object."
+
+
+You should only need to know the messages that the object should be able to accept and not the methods inside the class in order to program and the program to work. You shouldn't need to flush out every single message that's used in order for a program to get running. This speeds up development. You can send methods messages that they should be able to handle and your program shouldn't crash. Later on when you get around to it you can go ahead and program in how those messages should be handled.
+i.e. You are programming with object A. A needs to send a message to B to get the desired behavior. You might not get around to programming in that message with B yet, but your program will still work. Then you can get around to B later. With Java and other langs, you are forced to program everything from the start. Slowing down development. With Java it is hard to get a prototype up and running fast.
+
+
+Encapsulation is information hiding.
+Encapsulation is the process of hiding all the details of an object that do not contribute to its essential characteristics. Essentially, it means that what is inside the class is hidden; only the external interfaces are known (by other objects). That is, as the user of an object you should never need to look inside the box!
+
+
+
+
+OOP is about messaging, not objects. Alan Kay actual regrets coining the term objects because it makes people concentrate on the lesser idea.
+
+Objects support modularity. The functioning of any object does not depend on the internal details of other objects.
+
+
+Modularity: No component in a complex system should depend on the internal details of any other component.
+
+
+Many languages have modules as concepts as keywords which often times water down what modules are and don't implement strict modularity.
+
+Encapsulation is the OO version of modularity. But there's more to modularity than information hiding. Information hiding can mean little more than protecting the fields from outside manipulation. In Smalltalk information hiding is enforced. All properties of the object can only be accessed from inside. In Java information hiding is optional as you can make variables public.
+
+Real modularity is more than just protecting an object's data. You also need to protect its implementation details.
+
+A crucial property of messages is that they are the only way to invoke an object's operations. Theses properties insure that the implementation of one object cannot depend on the internal details of other objects, only on the messages to which they respond. Messages insure the modularity of the system because they specify the type of operation desired, but not how that operation should be accomplished. Operations are accomplished through code. Data and code is now protected. Everything is a black box.
+
+An important feature of modularity is that the programmer who designed the class can go back and change everything, including the data and the code of the methods. As long as the ways in and out are the same, the outside code should not break.
+
+Modularity can get broken even if you have only private variables. One way is if your class inherits from a class which has public variables. Even though everything you did was modular, the other programmer didn't enforce modularity so now your class isn't modular. This can sneak up on you. Another way (which is worse) is if your code changes the arguments passed and makes side effects that way. This can allow those that call it to rely on your code changing the argument passed instead of relying on the return value. This means that the code would depend on the implementation details of the method that is called.
+
+Modularity can be defined as such: The style of programming in which the internal code and data is sealed off from outside usage. And to communicate you have to use precise ways to communicate into and out of that module. In some langs those ways in and out may be interfaces, in others like OO languages they may be provided by messages.
+
+What is OO? It's a form of modularity.
+
+
+Encapsulation, data abstraction, polymorphism, and inheritance are the "four principles of object orientation" according to mainstream programming.
+
+A language's data abstraction capabilities determine what objects can be described.
+
+Pure OOP takes a revolutionary approach to data abstraction, providing a new dimension in which to organize the elements of a software system. For you, this means highly reusable software, truly generic code, and the opportunity to use a prototyping style of software development.
+
+One of the big ideas of OO: the more modular your code is, the less dependent one piece of code is on any other piece of code in the program. Each object looks after its own internal state. Message passing and modularity implement abstraction.
+
+Once you have message passing the other features falls into place as a natural consequence. It's up to the object to respond how and if they will respond to the message. Message passing necessarily means that there is encapsulation, abstraction, and polymorphism.
+
+
+
+The big idea behind message passing is not the process of sending a message itself, it's about how objects are supposed to communicate with each other.
+
+The big idea of message passing is that it's not about message passing, I think what Alan Kay has been trying to say all these year is that we should look at how bacteria communicate, and try to mimic that.
+
+They communicate by sending protein "messages" to their vicinity, and if a close-by bacterium knows what to do with it, it processes it, and responds by either sending out their own proteins (message passing), OR change their internals to get receptive to different kinds of messages (change internal state).
+
+From this viewpoint, coding starts being about cultivating a literal society of objects (cells). The obvious advantage being that biology scales an immeasurable amount better than whatever architectures we ever come up with. He often gives the example of the internet as a well-designed system, it operates in a similar manner, objects (anything that can self-identify with an IP-address) can join/leave at any point, and the system itself stays alive.
+
+
+Message passing is not about sending a message into the void and "hoping" that a compatible agent receives the message.
+
+Rather, it's about your object not having to know who is handling the message, only what the message is ("what" in both content and type).
+
+It's still up to you as the programmer to make sure that you have implemented the other objects to act on whatever message types your code will pass. Just like it's up to you to make sure the method exists in the target class when the caller tries to invoke it.
+
+Later on, if you decide to swap out your logging infrastructure for a different one, you don't need to update all the places that called the old one. You just tell your new logger to listen for messages directed at Logger.
+
+
+Messages should be universal. This is for polymorphism and easier refactoring. Code tied to the caller, not callee. More modular code, instead of being tied down to a specific type.
+
+
+Procedural programming makes OO design much harder.
+
+Getters and setters defeat the whole point of OO because they break encapsulation, which in turn breaks modularity.
+
+Getters and setters are a result of imperative thinking. With declarative thinking, there’s no need for them.
+
+“Why are you pulling all that data out of the objects only to push it back in again?”
+
+“PUT THE DATA WHERE THE BEHAVIOUR IS! — which is basically encapsulation in a nutshell.”
+
+Many classes that people make are filled with getters and setters. These are what are known as “anaemic classes”. They don’t do anything in themselves, they are merely containers for data. They lack behavior, the break encapsulation — they might as well be C structs.
+
+Putting the behavior where the data is might not seem like a very clear instruction at first glance, but it really is simply a matter of moving the behavior (computation) into the class where the data required for the calculation is actually held (in order words, putting the behavior where it really belongs).
+
+Now , it’s true that sometimes you do want (or even need) getters. But in 95% of the cases you most certainly don’t.
+
+You shouldn’t inject a “service” into an “entity”. In other words, an entity shouldn’t store a service. Instead, pass that service as an argument when you need that object to use it
+
+* Introduction to the Smalltalk Language
+** Smalltalk's Big Ideas
+*** The most important component in a computing system is the individual human user.
+*** Programming should be a natural extension of thinking.
+*** Programming should be a dynamic, evolutionary process consistent with the model of human learning activity.
+*** A computing environment is both a language and a productivity enhancing interface of programmer/user "power tools"; utilities to express yourself in that language and to organize and flexibly use both procedural and factual knowledge.
+
+If programming is to be a natural extension of thinking and learning, the system has to take programming errors in stride; a simple coding error can't crash the system or you'd lose all incentive to use an exploratory prototyping style of application development.
+
+Smalltalk promotes the development of /safe/ systems. Smalltalk "errors" are merely objects telling you they do not understand how to do what you are asking them to do.
+
+Smalltalk lets you get on to the business of solving your problem. Not writing the same code over and over. Not worrying about the flow of bits that should be abstracted away.
+
+** Code Examples
+
+*** Assignment to a Scalar Variable
+
+~a := b + c~
+
+*** Function Call with One Argument
+
+~a := array size~
+
+The function size is called with argument array and the value returned is store in the variable a. In Smalltalk, calling a function is known as /sending a message/. The message size is sent to the contents of the variable array.
+
+*** Function Calls with Two Arguments
+
+~x := x1 max: x2.~
+~y := p + q~
+
+In Smalltalk, for a two-argument message, the arguments precede and follow the message name. Note that in Smalltalk, the standard arithmetic operations are performed via messages. In the first example, the message max: is sent to the contents of variable x1, with the contents of x2 as the second argument. In the second example, the message + is sent to the contents of variable p with the contents of variable q as the second argument, and the result returned is assigned to the variable y.
+
+*** A Function Call with Three Arguments
+
+~b := x between: x1 and: x2~
+
+When a message has three or more arguments in Smalltalk, the name of the message is split into pieces, and a piece of the message name appears preceding each of the arguments after the first. This distribution of the message name helps to describe the message arguments. In theis example the message name is ~between:and:~ and the arguments are variables x, x1, and x2, This example could be used to test whether the value of x is between the values of x1 and x2, and assign the Boolean result to the variable b.
+
+*** Subscripted Variable Access
+
+~x := a at: i.~
+~a at: i + 1 put: y.~
+~a at: i + 1 put: (a at: i)~
+
+Smalltalk uses ~at:~ and ~at:put:~ messages to get and set values at indexes of arrays.
+
+*** If Statements
+
+~a < b~
+  ~ifTrue: [a := a + 1]~
+
+~stream atEnd~
+  ~ifTrue: [stream reset]~
+  ~ifFalse: [c := stream next]~
+
+*** Returning Function Results
+
+~^answer~
+
+*** Storage Allocation
+
+~p := Array new: 5~
+
+** The World According to Objects
+
+Smalltalk is build on the simple yet powerful model of "communicating objects". This what natural thinking is. We experience our world largely as a vast collection of discrete objects, acting and reacting in a shared environment.
+[[file:Introduction_to_the_Smalltalk_Language/2023-06-22_18-02-18_screenshot.png]]
+*** What are objects?
+
+A Smalltalk object is simply related pieces of code and data. The pieces of code are Smalltalk methods: a library of self-contained subroutines unique to each class giving each class of object its specific behaviors. An object's data structure is described by its collection of instance variables.
+
+Related data and program pieces are encapsulated within a Smalltalk object, a communicating black box. The black box can send and receive certain messages. Message passing is the only means of importing data for local manipulation within the black box. And if an object needs something done that it does not know how to do within its own set of methods, it sends a message to another object, in effect, asking for assistance in the completion of a task.
+
+Note: in Smalltalk, methods are not publicly exposed. They are internal to the object only (encapsulation).
+
+One object does not have a "direct memory access" to another object's methods. Smalltalk object's methods do not call other objects' methods directly. This is because each object is "its own system". They communicate, not control. The object knows how and when to send a message.
+
+Information hiding makes for highly portable, easily modifiable, and safe software.
+
+Smalltalk objects respond individually to every message.
+
+Smalltalk objects are designed to receive near universal messages. This characteristic of having different objects respond uniquely to the same message is known as /polymorphism/. It means you won't have to memorize a unique vocabulary for each class used in building your applications.
+
+~'This is a string' printString.~
+~423 printString.~
+~#(123) printString.~
+~$A printString.~
+~#('array of' 3 'strings and' 2 'numbers') printString.~
+
+Smalltalk objects take responsibility for their own behavior. You won't have to litter your application with conditional checks through case statements to see that the proper type of function is called to operate on a piece of data. This feature saves much time and significantly reduces software maintenance costs since only affected objects need be edited and re-compiled to enhance a Smalltalk application.
+
+A frequent objective is to /change the state/ of the receiver object.
+
+Smalltalk guarantees that there will be a response by the message recipient. If an object determines that it does not know how to perform a requested behavior, it will at least answer with a "Message not understood" response message. The method which sends this response also kicks in Smalltalk's debugging utilities to help you determine and correct the failure to communicate.
+
+Even program errors are detected and resolved within the object-oriented messaging framework of Smalltalk. This makes for a very exploratory environment in which to develop application software. A working prototype can be constructed quickly and enhancements integrated easily into the evolving system.
+
+*** How does Smalltalk organize objects and their methods?
+
+Smalltalk organizes its classes into a hierarchy of classes and subclasses. For example, the *Integer* class is a subclass of the *Number* class which is a subclass of *Magnitude* which is a subclass of Object, the most general Smalltlak class and parent of all other classes.
+
+/Inheritance/ provides a mechanism for both organizing and maintaining the collection of Smalltalk object classes. Inheritance recognizes similarities among objects, capitalizing on the fact that similar objects often behave similarly.
+
+A subclass inherits all methods known to the parent. If a selected parent's behavior is inappropriate, you simply define a method by the same name to override the parental way of doing things.
+
+Smalltalk's inheritance features encourage "programming to exception and modification". Without inheritance, you would have to spend a good bit of your time telling new classes of objects how to do elementary things like print.
+
+Under the conventional model of computing objects would manage how their stored on your system themselves. Hundreds or thousands of objects would all exist independently on your system. Smalltalk solves this problem with a global solution, an object-oriented model for storage. Smalltalk projects are stored in an image file. The image file is a computer readable snapshot of the current state of your Smalltalk environment, a kind of group photo preserving the state of each object.
+
+Saving the image to pernament disk storage allows you to end a Smalltalk session, saving your objects in "suspended animation" to be revived exactly as your left them when you restart Smalltalk. In this global and efficient manner, Smalltalk takes care of storing objects.
+
+Smalltalk is a prescription for an exciting programming experience ... the rare combination of an open and safe system inviting you to shape its capabilities to your needs. You can shape the language of Smalltalk and its objects to your needs, saving their state to an image. And then reload this custom environment whenever and wherever you wish.
+
+
+Messaging is all over Smalltalk. Even arithmetic operators like addition and subtraction are operators.
+
+An object provides methods to respond to those messages.

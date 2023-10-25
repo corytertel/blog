@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title></title>
+    <style>
+     pre code {
+       background-color: #eee;
+       border: 1px solid #999;
+       display: block;
+       padding: 20px;
+     }
+    </style>
+  </head>
+  <body>
+    <p>
+      Functions can follow a recursive or iterative process.
+
+      Just because a function is recursive, it doesn't mean that the process is also recursive. With tail-call optimization, functions whose last call is a recursive call can be optimized to be iterative under the hood.
+
+
+
+
+
+      Iterative processes use far less resources than their recursive variants.
+
+
+
+      But, that is not to say that recursive functions don't have their uses. I would argue that in many cases they are better to use.
+
+
+
+
+
+      Some algorithms are naturally iterative and some are naturally recursive.
+
+      To try to change the algorithm from its nature is often very difficult and causes hardship in reading.
+
+
+
+      The simplest algorithm is usually the best.
+
+
+
+
+
+
+
+
+
+
+
+      An iterative function is very hard to prove for correctness. Many things can go wrong. Not everything is guarenteed to be unmutable.
+      But a pure recursive function is very easy as you can guarentee values at certain steps.
+
+
+
+      The running time of iterative is easy. The proof of correctness is hard.
+      The running time of recursive is hard. The proof of correctness is easy.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <h3>In defense of recursive algorithms</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <b>Recursive functions are <u>easier to write</u> and <u>easier to read</u>.</b>
+
+      Certain algorithms exist naturally in a recursive manner. Examples include traversing a linked list, the fibonacci sequence, and merge sort.
+
+      These three are a piece of cake to write iteratively.
+
+      Let's look at a few examples in lisp.
+    </p>
+    <pre>
+      <code>
+	(define (fib n)
+          (cond ((= n 0) 0)
+	        ((= n 1) 1)
+	        (else (+ (fib (- n 1)) (fib (- n 2))))))
+      </code>
+    </pre>
+    <p>
+      This algorithm is so simple to read. It reads just as you would express it in English to a friend. However, this algorithm sucks right now as it has exponential time. The way to fix this is to memoize. Without memoization there is no point in using this algorithm. Let's rewrite it a bit to memoize so it has linear time instead of exponential.
+    </p>
+    <pre>
+      <code>
+        (define fib
+          (let ((ht (alist->hash-table '((0 . 0) (1 . 1)))))
+            (lambda (n)
+              (if (hash-table-exists? ht n)
+	          (hash-table-ref ht n)
+	          (let ((m (+ (fib (- n 1)) (fib (- n 2)))))
+	            (hash-table-set! ht n m)
+	            m)))))
+      </code>
+    </pre>
+    <p>
+      Still very readable. Some optimizations for efficiency and readability can still be made, but that's not the point. Now lets look an iterative version.
+    </p>
+    <pre>
+      <code>
+        (define (fib n)
+          (cond ((= n 0) 0)
+	        ((= n 1) 1)
+	        (else
+	         (let ((curr 1)
+	               (last 0))
+	           (while (>= n 2)
+	             (let ((tmp last))
+	               (set! last curr)
+	               (set! curr (+ curr tmp))
+	               (set! n (- n 1))))
+	           curr))))
+      </code>
+    </pre>
+    <p>
+      Notice how the algorithm needed to change. Going from recursive to iterative requires us to make this change, which is what makes it hard.
+
+      Let's make it memoize for comparison sake.
+    </p>
+    <pre>
+      <code>
+
+      </code>
+    </pre>
+    <p>
+
+
+      Yes in other languages that are not scheme this can be prettier, but the same goes for recursive.
+
+
+
+      In an algorithm as simple as the fibonacci sequence this isn't hard, however with even a slight increase in complexity the difficulty of translating a recursive algorithm into an iterative one grows drastically.
+
+      Let's look at quicksort now.
+    </p>
+
+
+
+
+
+
+
+    And in some cases, turning a function whose algorithm is recursive into an iterative process is so difficult that it is nearly impossible.
+
+    EXAMPLE
+
+    This distinction just gets worse in C.
+
+    </p>
+  </body>
+</html>

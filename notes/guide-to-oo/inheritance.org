@@ -1,0 +1,11 @@
+* Chapter 3: Inheritance
+
+
+NO INHERITANCE.
+It is possible to achieve everything without any inheritance, whether that be in the form of class
+inheritance, abstract classes, interfaces, or traits.
+You can achieve polymorphism through message dispatching. No inheritance required.
+Inheritance over-emphasizes classes. Classes are not more important than messaging.
+Inheritance trees can often over-complicate the project instead of accomplishing the task at hand.
+Inheritance has no way of semantically forcing a child to resemble a parent in structure, actions,
+or usage.

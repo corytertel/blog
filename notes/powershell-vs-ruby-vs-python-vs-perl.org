@@ -1,0 +1,67 @@
+#+title:Scripting Languages
+
+* Powershell
+
+Object oriented.
+Not guaranteed on Linux machines.
+Guaranteed on Windows machines.
+
+* Python
+
+Lots of versioning issues.
+Not guaranteed on Windows machines.
+Likely to be on Linux machines.
+
+* Ruby
+
+Not guaranteed to be on any system.
+
+
+* Perl
+
+Guaranteed to be on Linux machines.
+
+
+* Shell
+
+This shit sucks.
+
+Below is from a StackOverflow post
+
+
+
+
+TL;DR - use bash only for installing a better language (if it isn't already available), otherwise you're wasting unrecoverable, precious human time. If you can't do it on the command line by hand without mistakes, don't script with bash/shell.
+
+It's 2015, so I'd consider the following:
+
+    memory overhead
+        Ruby/Python runtime memory overhead compared to bash is tiny (because of shared libraries), while one probably can't maintain a non-trivial bash script anyway (i.e. one with > 100 lines) - so memory usage is not a factor
+
+    startup time
+        Ruby/Python startup may be a tiny bit slower, but chances are you're not going to be running lots of full Ruby/Python processes in a tight loop 100 times per second (if you have those kinds of needs, bash/shell is too much overhead anyway and you'll probably need to drop to C/C++)
+
+    performance
+        almost all typical data crunching will be faster in Ruby/Python - or at least comparable (or, you need C/C++/Haskel/OCaml/whatever anyway)
+        the real performance/bottleneck in execution (or even productivity) will almost never ever be "a lack of using bash/shell" (even Ubuntu switching dash for startup shows how bash is actually the problem - and a busybox is probably the only use case, because there is nothing more than 'bash' and 'vi' to write and run code, and there's often no way to add/download or store anything else)
+        running other processes to do the job (like sed/awk/grep) is actually a magnitude slower than than calling a method on a live object in memory
+
+    productivity
+        it's too easy to make mistakes in Bash/shell compared to using "real" methods, parameters, variables and exceptions in Ruby/Python
+        Agile is mainstream, while Bash has no support for it (lacking in unit testing capabilities, libraries, OO, modularity, linting, introspection, logging, metaprograming; almost impossible to refactor without breaking something)
+        way too many incompatibilities with other shells, minor environment variables can completely break a script (and some important dev-ops tools like Puppet ignore shebang lines and pass on or rewrite important shell variables), while Ruby/Python have well-defined relatively smooth migration paths even for major version changes
+        learning a new language takes a fraction of the time alternatively spent debugging shell scripts due to shell-specific issues (notably - variable names, no booleans, no exceptions, etc.)
+        even startup scripts are a landmine (especially because they can fail during system startup), and given the recent security flaws with bash, you may be better off using plain C (with good libraries) - yes, C needs compiling, configuration, etc., but even a simple shell script may need a repository, then versioning, then packaging anyway.
+        whatever is available with sed/awk/grep is likely already built into Ruby/Python - without it being a dependency, or "differences" between versions of those tools across platforms (so what if it works on your setup)
+    job security
+        what's the point of securing a job you don't like? (unless you love spending all those hours hard-to-debug but trivial-to-make shell script bugs)
+
+I find there's no reason to use Bash/Shell if you have Ruby/Python installed.
+
+And probably getting Ruby/Python installed doesn't even need a bash script in the first place (with the exception of busybox, some system tools depend on Python/Perl being present anyway).
+
+And every time you write a shell script, you're "practicing" doing exactly that - instead of learning something more powerful/productive.
+
+Why do people use Bash nowadays? Because it's a terrible, hard-to-break habit. A script is rarely "finished forever" after the first few minutes - no matter how strongly people tend to think that way. Along with the "it's the last bug in this script" fallacy.
+
+Conclusion: use bash/shell only when you're absolutely forced to (like ~/.bashrc, busybox), because it's almost never "the right tool for the job" nowadays.

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title></title>
+  </head>
+  <body>
+
+    <ul>
+      <li>
+	<h3>NEVER use any C functions.</h3>
+	<p>The C functions exist for backwards compatibility and that is it. You should never use them. They are not safe. They are equipped to deal with errors by returning a status int, however this is hardly informational and can cause your program to misinterpret what is an error and what is not. Not to mention that the C functions are highly pointer driven, which can cause memory leaks, segfaults, and many more disastrous errors. C functions are also highly mutable, which is just bad program design.</p>
+	<p>For every C function that exists, there exists a corresponding C++ function that has the same behavior. However, the C++ function is much safer due to it handling errors through exceptions and the types that are accepted/returned are much more meaningful to the programmer.</p>
+	<p>Example: use the C++ "stoi" over the C "atoi" for converting a string to an int.</p>
+      </li>
+      <li>
+	<h3>Use universal initialization at every declaration.</h3>
+	<p></p>
+      </li>
+    </ul>
+
+  </body>
+</html>

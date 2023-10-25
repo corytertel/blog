@@ -1,0 +1,8 @@
+
+
+
+This is the 1960's level of thinking that still spearheads program design today.
+
+It is design that is *very* literal. You have to be absolutely precise with every single step and action about what the computer is doing. You make one mistake and the system crashes.
+
+The structure of programs very much so resembles the military philosophy of command and control. https://en.wikipedia.org/wiki/Command_and_control. A top-down, hierarchical system with one person at the figurehead. They command and control independent systems that each respectively control even more systems. This is how the military is structured. You have the general on top who leads colonels who lead majors all the way down to privates.

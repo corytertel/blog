@@ -1,0 +1,105 @@
+#+title: Message Passing vs Method Invocation
+#+OPTIONS: \n:t
+#+STARTUP: showall
+#+DATE: Created on 17 June 2023 @15:07
+
+
+At first they may seem like the same. They are very similar. They have been formally proven to be functionally equivelent.
+
+
+The biggest difference is that message passing and method invocation take two different mental approaches. With method passing everything is moreso independent, compared to method invocation where stuff relies on each other.
+
+
+There are some technical differences though.
+
+With method calls logic is designed to be relied on the method call, versus with message passing stuff exists in their own thread.
+
+With method invocation, each method must exist at compile time. However, with message passing there is no check. This is a
+double edged sword. With message passing you can simply send a message to an object and because that object decides what to do with a message, it can decide what it wants to do with a message that doesn't have a corresponding method.
+
+All dynamic languages like JavaScript don't actually have method invocation. They have message passing designed to look like C-style method invocation.
+
+
+
+Is there a difference in philosophy between message passing and method invocation on an object?
+
+
+With public method invocation, the method must exist and be known by the object. In contrast, with message passing the object does not necessarily need to know how to handle the message and can redirect that message if necessary.
+
+
+
+
+Message passing is sender focused. Method invocation is receiver focused. With message passing you only have to worry about the message you want to send. It's not attached to an object. You can pass any object as an argument that can interpret that message and you should still get the desired result.
+
+In Java, there is only method invocation. In order to have a general method that code can call, class would have to implement a common interface. That requires more architecture and possibly changing classes to make your code work. With message passing there is no need for a common interface. You can just send the message as it is not attached to the passed object.
+
+While message passing can have identical syntax and has the same capability as method invocation, there is a different attitude that can lead to shorter, more comprehensible and natural code.
+
+The goal of message passing is not some improved capability. The goal is to write more natural code. A "natural extension of human thinking".
+
+Another way to think of it:
+With message passing the sender sends out the message that it wants (natural).
+With method invocation the sender is forced to call a method that the receiver is okay with (unnatural).
+
+You might think? Well with method invocation the method is guaranteed to exist and with message passing the method isn't. So this means message passing is unsafe and stupid. Why would I ever use this? Well, with method invocation you are modifying your current code to make use of methods that are guaranteed to already exist. With message passing you aren't modifying your current code at all. Instead you modify the called object. The modification of code still exists in both cases. It's just a matter of where.
+
+
+
+Messages don't "belong" to any object. With method invocation, each method is unique to each class. There is no expectation for a method ~ref~ apart of class ~List~ to operate the same semantic way as ~ref~ from class ~Array~. It becomes much harder to program generically. With messages, messages are universal. ~ref~ will get the same result from any object.
+
+In Java terms, imagine if every single public method needed to be apart of it's own interface. And every single method call could be easily swapped out for any other object that implemented that interface. Except that in Smalltalk this extra boilerplate engineering wouldn't be necessary.
+
+
+
+Message passing is not about the implementation of passing messages, it's about communication between objects.
+
+An object sends a message to an object that it knows about. If it knows what to do with the message, it processes it accordingly. If not, it sends out another message asking for help.
+
+The program should be a whole society of independent systems. If one system (object) should go down or fail, the rest of the system should not be impacted.
+
+Your code only needs to know about the message (both in content and type), instead of knowing who is handling the message. Later on, if you want to completely swap out how the code works, it is really easy. Simply swap out one class for another, assuming they can handle the same message.
+
+
+
+When Alan Kay talking about message passing, he's not talking about message passing on a bus and objects having event listeners. He's talking about the idea of communication between objects. Not the physical implementation of events and messages. He's talking about "selective method names".
+
+
+Message passing is also about public api access to objects. And you can only use those objects through it's public API.
+
+An Object-Oriented language is one where the only way objects can communicate with other objects is by calling methods i.e. by message passing, never by modifying the objects directly from their outside. Only the object itself should care about its internal state. The object should know about its behaviors and what state changes are actually valid.
+
+In Java, many projects overuse getters and setters. Getters and setters break encapsulation. More so public setters since they allow any piece of code anywhere can change the value of an object's internal state at any time.
+
+In OOP you should not simply change state/value inside other object, because you pretty much end up with anemic domain model where classes are just structs and code that modify it is not part of the class.
+
+
+
+The key to Alan Kay's view is the reason why a message is sent.
+
+When an object of class A sends a message to an object of class B because A wants B to do something specific, that isn't OO (according to Kay's vision.) If A is sending the message to inform B that something has happened (rather than telling it to do something,) that is OO.
+
+A good example of this is an onClick method that informs something that a button was clicked.
+
+A bad example would be the append method on a container. This isn't OO programming, rather it is bog standard modular programming. There's nothing wrong with modular programming mind you, but it is different than OO.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Is MVC OOP?
+
+MVC is not OOP (at least not what OOP was originally) and it's a shame that corruption of the idea was allowed to creep in.
+
+I do like your use of the word "anemic" to describe the method free classes that pass for objects these days.
+
+# Local Variables:
+# jinx-local-words: "Smalltalk"
+# End:

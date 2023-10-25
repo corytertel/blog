@@ -1,0 +1,9 @@
+
+
+
+
+"A fool admires complexity, a genius admires simplicity." -Terry Davis
+
+(The definition of) complexity is in the eye of the beholder.
+
+Some people may think that an abstraction introduces unneeded complexity, thus making a program worse. Others will think that the same abstraction makes their life much easier. And it's obvious that writing a python script is much simpler than writing the equivalent in assembly. So where is the line drawn?

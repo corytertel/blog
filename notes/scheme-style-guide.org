@@ -1,0 +1,10 @@
+#+title: Scheme Style Guide
+#+OPTIONS: \n:t
+#+STARTUP: showall
+#+DATE: Created on 15 June 2023 @22:44
+
+Predicates that return #t or #f (and only #t or #f) should end in a ?.
+
+Mutators that change a value should end in a !.
+
+Local (scoped) variables go in all CAPS.

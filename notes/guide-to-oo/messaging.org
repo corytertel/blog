@@ -1,0 +1,167 @@
+* Chapter 1: Messaging-Based Object-Orientation (a.k.a. the Original Object-Orientation)
+
+Human thinking is naturally object-oriented. By analyzing any problem, we make it object-oriented. I go /drive/ in my /car/, which is a /vehicle/, to go see the /doctor/, who is a /person/, and he will /tell me whether I'm healthy or not/. Even math is object-oriented. There's numbers, real numbers, rational numbers, integers, whole numbers, and natural numbers. There's also sets, functions, and matrices.
+
+Objects are their own independent systems. Each blind to the world around them. Nothing can use the data that’s stored inside of it. To the outside, it is one whole thing (an object), like a primitive. Looking at primitives in languages, a primitive can only be used through the built-in functions. You cannot get any lower. You cannot inspect and change the data from inside. The only way to see or modify the data inside is to use the built-in functions, providing encapsulation for primitives (like how pure objects should be). In this sense, a primitive is an object that is hard coded into the language. And by creating a new object you have added a new primitive to the language (given that the object is encapsulated). There should be no difference in how you treat a primitive versus how you treat an object you created yourself. And objects should not be thought of as a data structure, instead they should be treated like a primitive themselves. An object is data and functions bound together. The data is called /instance variables/. The functions are called /methods/. The only way to communicate with said object is through messaging (assuming it's encapsulated).
+
+Alan Kay, the creator of object-oriented programming, famously says that OOP is about messaging, not objects. Alan Kay regrets coining the term "objects" because it makes people concentrate on the lesser idea.
+
+
+** What is Messaging?
+
+Messages don't belong to any function. You can think of messages as a general function that you can call on any object. You can call any message on any object. Instead of implementing public methods that can be called upon the object, you implement the way in which the message is handled for that object. You don't worry about whether or not the object can handle it. You call what the operation you want on any object.  If it can't, then you go in the object and make it able to handle the message.
+
+#+begin_example java
+
+"Hello".append(" world!"); // => "Hello world!"
+{1, 2}.append({3, 4});     // => { 1, 2, 3, 4 }
+
+#+end_example
+
+This looks the exact same as a method invocation. So what's the difference between messaging and method-invocation?
+
+** Messaging vs Method-Invocation
+
+Messaging and method-invocation might seem to be the same as they both take an object and call code that is on that object. And you'd be correct. They have been formally proven to be functionally equivalent. Message passing can also have identical syntax to method invocation.
+
+#+begin_example java
+// Method call
+obj.method(arg1, arg2);
+// Message pass
+obj.message(arg1, arg2);
+#+end_example
+
+So if they have the same capability and can have the same syntax, what's the real difference? The approach. There is a different attitude that can lead to shorter, more comprehensible and natural code. (There's also some implementation differences, but under the hood messaging boils down to a function call, the same as a method invocation.)
+
+Messaging is a unique concept. It is different than a C-style function call. Although messaging may boil down to a function call under the hood, it is not to be thought of that way.  With method invocation you are calling a specific piece of code on that object to do something. You care about which piece of code gets run. With message passing you do not. Any message can be sent to any object. This is different than what most C-style languages have nowadays. All you do is program the idea that you want to be run, not point to the implementation itself. You no longer care what specific piece of code gets run. Message passing is all about semantic programming. You are no longer worrying and thinking about calling a specific function. The language will figure out which specific piece of code to run for you. All you are trying to do is to call the type of action that you want performed. The function is tied to the specific action, not a type. When you program a method in an object, you are programming an implementation of that object for that message. Not a function itself.
+
+The easiest way to think of messaging is this: think of messaging as calling a global function, but then the implementation of that function will dispatch according to the type. And the implementation of that type will defined as a method in the class.
+
+With message passing the sender sends out the message that it wants (natural).
+With method invocation the object forces the sender to call a method that the object is okay with (unnatural).
+
+You might think? Well with method invocation the method is guaranteed to exist and with message passing the method isn't. So this means message passing is unsafe and stupid. Why would I ever use this? Well, with method invocation you are modifying your current code to make use of methods that are guaranteed to already exist. With message passing you aren't modifying your current code at all. Instead you modify the called object. The modification of code still exists in both cases. It's a matter of where.
+
+** How Messaging Works
+
+With method invocation, each method is unique to each class. There is no expectation for a method ~ref~ apart of class ~List~ to operate the same semantic way as ~ref~ from class ~Array~.  As a result, it becomes much harder to program generically.
+
+Messages don't "belong" to any object. Messages are designed to be used as if they’re near-universal, meaning that all messages of the same name should have the “same resulting behavior”. Continuing with the example, sending ~ref~ to any collection should return the value stored at a key.
+
+Typical way messaging is implemented in a dynamic language:
+1. User calls a message on an object. It doesn’t matter the type of this object.
+2. Program figures out the type that the object is.
+3. Program dispatches to the method of the object.
+(This of course differs in a statically typed language, which is where constructs like interfaces come in.)
+
+Note: certain languages have a way to put a message on a bus and then objects listen to the bus with event listeners. This is /not/ the type of messaging that we are talking about.
+
+** Why Messaging in Important
+
+Messages are sender focused. Not receiver focused. You send the message that you want, rather than what the object your are operating on wants. You don’t worry about the type of anything.
+
+It’s the bacteria model of communication. Your system (cell) sends out a message. The message says what you want done. You don’t care who does it. You don’t care how it does it. But it needs to get done.  You want to lookup an item in a collection? You don’t care what type of collection it is. You don’t care if it navigates from node to node in a linked list or uses a hash function in a hashmap to find the correct item. You want the item returned for the key that you gave it. So you would call ~collection.ref(2)~, because that's the type of action that you want carried out. (Of course this analogy isn’t 1:1 with bacteria because your object doesn’t spam messages waiting for something to receive the message, it sends one message and as soon as it’s sent it immediately gets picked up.)
+
+Like bacteria, if one thing goes down, the system is still running fine. The program should be a whole society of independent systems. If one system (object) should go down or fail, the rest of the system should not be impacted. If the object doesn’t know how to interpret the message, it’ll send an error and the system should be able to handle that at some point.
+
+#+begin_quote
+"I thought of objects being like biological cells and/or individual computers on a network, only able to communicate with messages... OOP (Object Oriented Programming) to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things." -Alan Kay
+#+end_quote
+
+Function calls are guaranteed to exist. Messages aren’t. This is fine. If an object doesn’t know how to handle a message, then it will return an error. But an error shouldn’t crash the system. The system should be designed to handle errors and act accordingly. But you shouldn’t need to worry about this. A parser can pick up that an object doesn’t have a response to a message that is called and warn the user. Regardless, the system will be fine even if the method doesn’t exist. This promotes agile development. You can (and are encouraged) to use an object the way it should be used, rather than either program for how it is right now or you need to flush out the object’s definition before you can use it. An object responds to a message by calling its corresponding method.
+
+Your code only needs to know about the message (both in content and type), instead of knowing who is handling the message. Later on, if you want to swap out how the code works, it is really easy. Simply swap out one class for another, assuming they can handle the same message.
+
+Messaging is not about sending a message and hoping that the object which receives it is compatible. Instead it's about your object not needing to know who is handling the message, only what the message is. You still need to ensure that all objects have implementations for messages that your code might send them. This is the exact same as ensuring that your object has the method you are trying to invoke in a language like Java.
+
+** Modularity
+
+Purposes of OO:
+- Modularity.
+- Natural extension of human thinking.
+- Programming should be a dynamic, evolutionary process; similar to the model of human learning.
+
+
+Encapsulation is information hiding.
+Encapsulation is the process of hiding all the details of an object that do not contribute to its essential characteristics. Essentially, it means that what is inside the class is hidden; only the external interfaces are known (by other objects). That is, as the user of an object you should never need to look inside the box!
+
+
+Objects support modularity. The functioning of any object does not depend on the internal details of other objects.
+
+
+Modularity: No component in a complex system should depend on the internal details of any other component.
+
+
+Many languages have modules as concepts as keywords which often times water down what modules are and don't implement strict modularity.
+
+Encapsulation is the OO version of modularity. But there's more to modularity than information hiding. Information hiding can mean little more than protecting the fields from outside manipulation. In pure object-orientation, information hiding is enforced. All properties of the object can only be accessed from inside. In Java, information hiding is optional as you can make variables public.
+
+Real modularity is more than protecting an object's data. You also need to protect its implementation details.
+
+A crucial property of messages is that they are the only way to invoke an object's operations. Theses properties insure that the implementation of one object cannot depend on the internal details of other objects, only on the messages to which they respond. Messages insure the modularity of the system because they specify the type of operation desired, but not how that operation should be accomplished. Operations are accomplished through code. Data and code is now protected. Everything is a black box.
+
+An important feature of modularity is that the programmer who designed the class can go back and change everything, including the data and the code of the methods. As long as the ways in and out are the same, the outside code should not break.
+
+Modularity can get broken even if you have only private variables. One way is if your class inherits from a class which has public variables. Even though everything you did was modular, the other programmer didn't enforce modularity so now your class isn't modular. This can sneak up on you. Another way (which is worse) is if your code changes the arguments passed and makes side effects that way. This can allow those that call it to rely on your code changing the argument passed instead of relying on the return value. This means that the code would depend on the implementation details of the method that is called.
+
+Modularity can be defined as such: The style of programming in which the internal code and data is sealed off from outside usage. And to communicate you have to use precise ways to communicate into and out of that module. In some langs those ways in and out may be interfaces, in others like OO languages they may be provided by messages.
+
+What is OO? It's a form of modularity.
+
+Encapsulation, data abstraction, polymorphism, and inheritance are the "four principles of object orientation" according to mainstream programming.
+
+A language's data abstraction capabilities determine what objects can be described.
+
+Pure OOP takes a revolutionary approach to data abstraction, providing a new dimension in which to organize the elements of a software system. For users, this means highly reusable software, truly generic code, and the opportunity to use a prototyping style of software development.
+
+One of the big ideas of OO: the more modular your code is, the less dependent one piece of code is on any other piece of code in the program. Each object looks after its own internal state. Message passing and modularity implement abstraction.
+
+Once you have message passing the other features falls into place as a natural consequence. It's up to the object to respond how and if they will respond to the message. Message passing necessarily means that there is encapsulation, abstraction, and polymorphism.
+
+Messages should be universal. This is for polymorphism and easier refactoring. Code tied to the caller, not callee. More modular code, instead of being tied down to a specific type.
+
+** Getters and Setters
+
+In OOP you should not simply change state/value inside other object, because you pretty much end up with anemic domain model where classes are C-style structs and the code that modifies it is not part of the class.
+
+Many Java projects overuse getters and setters. Getters and setters break encapsulation. More so, public setters since they allow any piece of code anywhere can change the value of an object's internal state at any time.
+
+Getters and setters defeat the whole point of OO because they break encapsulation, which in turn breaks modularity. Getters and setters are a result of imperative thinking. With declarative thinking, there’s no need for them. “Why are you pulling all that data out of the objects only to push it back in again?” Many classes that people make are filled with getters and setters. These are what are known as “anemic classes”. They don’t do anything in themselves, they are merely containers for data. They lack behavior, the break encapsulation — they might as well be C structs.
+
+Instead of taking data out of an object to work with it, put the behavior where the data is (which is the definition of modularity). Putting the behavior where the data is might not seem simple at first, but it is a matter of moving the behavior into the class where the data required for the computation is stored. Sometimes you do need getters, but in 95% of the cases you do not.
+
+** Miscellaneous Ending Notes
+
+In a statically typed, compiled system, a message that can't be understood will never be sent to an object as this can determined at compile time. But then you need to worry about typing, which gets in the way of semantic programming. However, linters can also tell you in development whether or not an object handles a message, therefore a statically language is not needed for absolute safety.
+
+Linters are also an important point. Modern linters are designed to promote method invocation, not message passing. When you program in Java and you call ~obj.method()~ and it doesn’t exist, the editor places the error right under that piece of code. This is wrong. You want to send that message. You aren’t in the wrong, the object is because it can’t interpret the message. So a warning should be put under that line and the class should be highlighted with and error telling you to implement the handling for that message.
+
+Instead of writing your code for what methods have already been created, the objects are created to fit already running pieces of code. Design your objects around messages, not your messages around objects.
+
+The goal of message passing is not some improved capability. The goal is to write more natural code. A "natural extension of human thinking". You start to program semantically.
+
+One way to think about messages is that they are a generic method invocation.
+
+A pure object-oriented language is one where the only way objects can communicate with other objects is by calling methods i.e. by message passing, never by modifying the objects directly from their outside. Only the object itself should care about its internal state. The object should know about its behaviors and what state changes are actually valid.
+
+
+#+begin_example java
+// How Java looks:
+
+System.out.print(1 + 2);
+
+// How Java should look with message sending:
+
+(1 + 2).print(System.out);
+#+end_example
+
+Messaging is the most important thing with OO. You have that (or follow the pattern), and then everything else falls into place. Messaging forces encapsulation, data abstraction, and polymorphism as the only way you can communicate with objects is through messaging.
+
+Class should be 100% extensible. You should be able to modify or add a new method (interpretation for a message) easily, without needing access to the original code and modifying the original file. The easiest way for this is to have methods defined outside of the class definition. That’s way you can add methods to whatever class in whatever file whenever you want.
+
+While messaging does have an implementation, it is more of an organizational pattern. You can have messaging built into the language (meaning dispatching and correct error handling), but if universal messages and generics aren't encouraged, then messaging falls apart and the language becomes similar to method invocation. Python and JavaScript are like this. Both actually work by using messaging under the hood. However, modern courses and professors teach both languages in a way that is the approach of method invocation, which is unfortunate. The opposite is true too. Java works using method invocation. However, with interfaces you are able to implement the messaging pattern.
+
+
+# Local Variables:
+# jinx-local-words: "Linters Modularity getters hashmap linters modularity polymorphism structs"
+# End:

@@ -1,0 +1,29 @@
+* Chapter 2: Functional Programming and Object Orientation
+
+People get all wrapped up in objects, and then make functions that describe the objects. Instead you should aim to make objects describe the behavior you want. You want to be thinking about he flow of the program. This is why functional programming and OO go so well together. Functional programming is all about the flow of data. OO is all about messaging. See? They are the same.
+
+TODO research about how imperative programming is anti-OO
+
+
+
+
+Functional programming and OO are both *declarative*.
+
+
+
+Objects are equivalent to closures, therefore object-orientation is just more complicated functional programming.
+
+
+
+Both ideologies have their fundamental core built upon messaging and generics. Apply this function or send this message to these things.
+
+
+
+
+
+
+how these two are fundamentally compatible
+all objects are closures
+closures are functionally equivelent to objects
+
+how these two mesh in practice

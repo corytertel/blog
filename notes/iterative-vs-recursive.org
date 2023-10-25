@@ -1,0 +1,8 @@
+#+title: Iterative vs Recursive
+#+OPTIONS: \n:t
+#+OPTIONS: _:{}
+#+OPTIONS: ^:{}
+#+STARTUP: latexpreview
+#+STARTUP: entitiespretty
+#+STARTUP: inlineimages
+#+DATE: Created on 12 October 2023 @14:24

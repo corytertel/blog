@@ -1,0 +1,16 @@
+
+
+3 main ideas:
+- Messaging (multiple dispatch)
+- Predicate typing (better than inheritance)
+- Error handling (everything is designed to program as what you want, no guarentee that it exists so there may be errors and we have to still successfully run)
+
+
+Why reinvent the wheel?
+
+
+Cohesion and coupling
+
+
+
+Baking in proven design patterns

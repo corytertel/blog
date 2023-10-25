@@ -1,0 +1,15 @@
+
+
+
+1. Remove all ambiguity from the code.
+
+Even if the code becomes verbose, ambiguous code is the hardest to understand which makes it unreadable from the start.
+
+2. Decrease the character count
+
+Once all ambiguity is removed, remove as much symbols as you can from the code. But this cannot come at the expense of ambiguity.
+
+Example:
+~1 + 2 * 3~ vs ~1 + (2 * 3)~
+
+Here we don't know whether the order of operations is mathematical or left to right. So, even though it adds characters, we add parenthesis to remove that confusion.

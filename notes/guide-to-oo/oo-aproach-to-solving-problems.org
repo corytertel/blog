@@ -1,0 +1,95 @@
+
+
+When to make a new object?
+
+Whenever you have closely related data (semantically), you should make a new object with them together.
+Whenever you have data that has properties, make a new object.
+
+
+
+
+When to use a hashmap?
+
+Whenever you want to randomly look up data that is associated with, but not bundled with the data.
+
+
+
+
+
+
+
+PUT THE CODE WHERE THE DATA IS!!!!
+
+
+Do not use getters and setters.
+They have their use sometimes but you shouldn't be taking data in and out of the object.
+
+
+
+
+
+
+
+OO System
+Make a constructor?
+
+
+
+
+How to determine whether your code is correctly placed within the methods you have defined:
+
+If a method does not refer to any aspect of the object (e.g. super, self, or instance variables
+etc.) what is it doing? Should the method be there?
+
+• A method should only send messages to a limited set of objects. This promotes
+maintainability and comprehensibility and increases the modularity of the method.
+• Have you used accessor methods for instance variable access? This is known as variable-free
+programming. This can greatly insulate the method from changes in how the object holds
+information.
+• Is the behaviour encapsulated by the method intended for public or private (to the object)
+use? If it is a mixture of the two, then the method should be decomposed into two or more
+methods. The private code should be placed in a method which is defined within
+a private
+protocol (see below). This indicates to developers that the method is not intended for external
+use.
+• Does the method rely more on the behaviour of other objects than on its own object  (that is,
+a series of messages is being sent to some object(s ) other than “self”)? If so, the method may
+be better placed in another object (or objects).
+
+From Smalltalk and Object Orientation: An Introduction by John Hunt
+
+
+
+
+
+
+
+How to structure your program?
+How to organize your classes?
+What should I make into a class?
+
+
+
+Start with functional decomposition. Imagine how the system works. Then split each individual action into its own function. Think about the main function of the system and them break them down into sub functions and so on. You should be concerned with stating what is happening, not how it is happening. As you go deeper and deeper into flushing out each individual task, the how will be figured out at the appropriate level. The important thing is to keep it as generic as possible, restricting the type of object you are operating on only as much as you need to. Naturally through functional decomposition the data required to support the desired functionality will be identified. Remember, you care about the messages that are being sent. Not what receives them and not how the object that receives them interprets them.
+
+Objects should be *descriptive, not prescriptive*. You should not be forcing the types of objects. You should pick out the function first and then have the objects describe the natural flow of data. You should not pick out the objects first and then have the program behavior modified to fit your prescribed objects.
+
+This is where people commonly make mistakes. They take an intro to programming class and are forced to use Java. They are taught to focus on the objects instead of the problem, causing them to prescribe objects which are unnatural for their program. Their program becomes a confusing mess that doesn't represent the problem in the simplest way it can. They also don't understand the architecture behind some of Java's decisions. All of this leads to them hating Java and hating OOP. The populist status-quo idea that "Java bad" and all programmers should think "Java bad" doesn't help OOP's case either.
+
+TLDR functions then objects, never objects then functions.
+
+
+
+How do you identify objects? You don’t. They will identify themselves within the context of the problem.
+
+Forget about the object entirely, you only care about the method that is being called. The object will fill itself in.
+
+
+
+
+
+
+
+
+
+On static methods

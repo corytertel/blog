@@ -1,0 +1,19 @@
+
+
+
+Everything is composable.
+
+This means that it's very easy to swap out one part of the algorithm for another quickly and without hurting any additional code.
+
+It also allows for you to completely change how something works (some abstraction like a function) behind the scenes without effecting anything else.
+
+
+
+Yes you can do this in C++ or Java, but no one does and this type of development is not encouraged.
+
+
+
+
+
+
+Easy refactorization due to abstractions allows you to write algorithms very quickly and then optimize and refactor later without damaging any current code.

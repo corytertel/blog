@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title></title>
+  </head>
+  <body>
+
+    We don't want to be writing assembly, that's why C and C++ and Rust exist. We don't want to be writing binary, that's why assembly exists. So then abstraction is good. But then people argue that Java and C# are <i>too</i> abstracted and don't get down to brass tacks. You spend all this time doing parts of the abstraction rather than solving the problem, like fixing an inheritance tree. And many higher level languages have garbage collectors, which slow down your program, instead of you managing your memory yourself. So then abstraction is bad.
+
+    I'm trying to figure out what kinds of abstractions are good and what kinds are bad.
+
+    It depends on the use case. If you need to worry about managing memory or ownership, then
+
+    These kinds of things distract from the computation that you are trying to produce. They add mental overhead to the problem. Instead of just solving the problem you now need to worry about something else. Something is interfering with your ability to directly solve the problem. That is the problem with languages like C and Rust: they are not direct with problem solving logic. On the other hand there exist languages like APL which get down to solving the problem directly because the flow of bits is abstracted away, but now you loose fine grain control over your program.
+
+    So what's the answer?
+    It depends on your use case.
+
+    But if you don't know what to do, then what should you do?
+    Scale down. If you're going to be doing extra work for a problem then you might as well be not introducing garbage.
+
+    This is why a language should have multiple variants of abstraction. Let's call our language A. Well in A there should be an abstracted variant where you should not need to worry about memory. Let's give this variant a garbage collector. There should be another variant that gives you fine control over the hardware where you indeed do need to do manual memory management. These two variants should be enormously similar. They should have the same exact syntax and strategies to solve problems. A programmer should be able to read the other variant with ease if they already know one variant.
+
+
+    Terry Davis suggests that you "man up and learn pointers."
+
+
+
+    We should strive for a language that has zero friction or mental overhead between the programmer's brain and the logic of the language. He should be able to show exactly what he wants with the least trouble.
+
+    Of course finer grain tasks will need fine grain control, but the vast majority of stuff can be done without manual management.
+
+    One possible idea for a language would be to have an abstracted variant that is what you program in at all times. That language would transpile to a finer grain language where you can do your fine grain stuff. And then it would compile. At any moment in the code you can inspect what exactly the function will be, expand it and modify it.
+    Think about code.org javascript block programming. You drag your code blocks of what you want into the editor, and this can do most of the stuff you want. Then if you need you can edit that code block manually, and provide manual more fine control logic, and then swap back to the code block view.
+    Imagine you are programming and you want to optimize a function with fine grain logic. You type that function out, then press a button in your editor to "expand" it. It will substitute in the under the hood logic that you normally can't see. Then you can edit it. Your code should still work fine because of black boxes. So every function has an "underground" representation of code. At any given moment you can hope down to how the code will transpile to the intermediate language, and then hop back up.
+    In normal programming mode you don't have access to stuff like pointers, but you do when you "inspect" the intermediate language.
+    When you define a function in the higher language it will also define a function in the lower language.
+
+
+  </body>
+</html>

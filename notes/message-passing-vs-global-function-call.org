@@ -1,0 +1,31 @@
+#+title: Message Passing vs Global Function Call
+#+OPTIONS: \n:t
+#+OPTIONS: _:{}
+#+OPTIONS: ^:{}
+#+STARTUP: latexpreview
+#+STARTUP: entitiespretty
+#+STARTUP: inlineimages
+#+DATE: Created on 1 July 2023 @10:52
+
+
+Is message passing just the same as a generic, universal function call?
+
+No, because message passing has a different implementation for every object it calls itself onto.
+
+How do theses two relate? Can they coexist?
+
+
+
+Methods that clearly operate on an object are "message functions".
+i.e. ~ref~, ~tail~, ~append~
+
+What about functions that don't operate on a specific object?
+Actually, those don't exist.
+Even ~map~ does, just the arg order is different.
+
+And macros/special forms fit into it because again, they are just different syntax.
+
+
+Is ~map~ just a multi-object message?
+
+~map~ is control flow. It doesn't operate on a specifc object. Or does it?

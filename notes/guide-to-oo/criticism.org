@@ -1,0 +1,12 @@
+* Chapter 6: Addressing Criticism Against Object-Orientation
+
+
+** Abstract Data Programming vs. Object Oriented Programming
+
+Explain what ADP is and the difference.
+
+
+REWORD TO AVOID PLAGARISM
+Languages like C++ and Java treat object-oriented programming as the application of Abstract Data Types, whereas languages like Smalltalk and Ruby view object-oriented programming as developing a network of cooperative virtual computers (objects). The key difference is in their philosophical approaches. The big takeaway is this: All the complaints you’ve heard about object-oriented programming and inheritance and scalability issues have come from using C++, Java, C#, etc. The Abstract Data Type philosophy is detrimental to large-scale software development.
+
+Object-orientation is conceptually and operationally simple. Java and C++ are not. Smalltalk is a true object-oriented language, while C++, C#, and Java do things that are more-or-less object-like. Smalltalk is syntactically simple.  In C++ and Java, there are so many exceptions to every rule. Their syntax are horrendously complex. Every code change stops you for many seconds or minutes before you get to the computation of interest. Programming becomes nursing the code instead of solving a problem. Smalltalk’s purity and internal consistency with respect to OOP is unmatched by any other language. Java, on the other hand, is not entirely pure and it carries a lot of baggage that makes the language less suitable for beginners.

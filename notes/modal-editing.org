@@ -1,0 +1,11 @@
+#+title: Modal Editing
+#+OPTIONS: \n:t
+#+OPTIONS: _:{}
+#+OPTIONS: ^:{}
+#+STARTUP: latexpreview
+#+STARTUP: entitiespretty
+#+STARTUP: inlineimages
+#+DATE: Created on 16 July 2023 @09:15
+
+
+abc def ghi jkl
